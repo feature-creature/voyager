@@ -1,6 +1,6 @@
 // AUTHOR: Luke Demarest
-// DATE:
-// LICENSE: 
+// DATE: 2017.11.06
+// LICENSE: GPL
 
 // OBJECTIVE: VISUALS OF EARTH
 // OFFICIAL SOUND FILE: 3
@@ -28,9 +28,9 @@ import ddf.minim.analysis.*;
 // DECLARE GLOBAL VARIABLE 
 
 // library instances
-// ?? viz class
 Minim minim;
 AudioPlayer sample;
+// 
 Visuals vis;
 
 // Fast-Fourier Transform (FFT)
@@ -46,18 +46,14 @@ float scale=0.5;
 float[] sum;
 int frame = 0;
 
-// flag for showing debug data
-boolean debug = false;
-boolean cont = true;
-
 // rotation
-float rotAngle = 0.0;
+float rotAngle = 1;
 float angleStep = 0.01;
 
 
 void setup() {
-  //size(256, 256);
-  fullScreen();
+  size(256, 256);
+  //fullScreen();
 
   // initialize minim audio player
   // pass 'this' to indicate [sketch|data] directory for filepath.
@@ -89,18 +85,6 @@ void setup() {
 
 void draw() {
 
-  // color
-  stroke(255);
-  fill(255, 60);
-  // !! feature opportunity
-  // fill(255, map(rotAngle, 0, 10, 0,255));
-
-  // rotation
-  if (rotAngle >= 10 || rotAngle >= 10) {
-    angleStep = -angleStep;
-  }
-  rotAngle += angleStep;
-
   // ?? figure out what this does
   // get the FFT and push it to the visualizer
   fft.forward(sample.mix);
@@ -116,59 +100,21 @@ void draw() {
   // DRAW VISUALS
   vis.draw();
 
-  // !! feature opportunity (cont)
+
+
   // ?? integrate into viz class
-  // ?? explore draw order of shapes
-  if (cont) {
-    pushMatrix();
-    translate(width/2, height/2);
-    rotate(rotAngle);
-    float sclx = 200;
-    int x = 0;
-    float orbit = 10;
-    orbit += 3*angleStep;
-
-    ellipse(-2, -20, 7, 7);
-    // !! feature opportunity
-    // ?? used to translate off screen
-    ellipse(10+ orbit, 0, 10, 10);
-    line(0, 0, 10 + orbit, 0);
-    line(-2, -20, 10 + orbit, 0);
-
-    // lines
-    // ?? accidental dormant code
-    // ?? not visable when drawn after points
-    // ?? + || -
-    //for (int i = 0; i < sample.bufferSize() - 1; i+=4) {
-      //point(x + rotAngle, -20  + sample.left.get(i)*sclx + rotAngle);
-      //pushMatrix();
-      //rotate(-3*rotAngle);
-      //point(-40 + sample.right.get(i)*sclx*2.5, x);
-      //popMatrix();
-    //  x++;
-    //}
-    
-    // independent circle
-    // ?? accidental dormant code
-    // ?? not visable when drawn after points
-    // ?? + || -
-    // view after points arise
-    // morse code/breathing blink
-    //pushMatrix();
-    //rotate(rotAngle/3);
-    //ellipse(-2, -40, 5, 5);
-    //popMatrix();
-    
-    // points
-    for (int i = 0; i < bands; i++) {
-      // draw the bands with a scale factor
-      translate(sum[i], i);
-      rotate(sum[i]);
-      ellipse(i, -20, sum[i]*2, sum[i]*2);
-    }
-
-    popMatrix();
+  // ellipse points
+  pushMatrix();
+  translate(width/2, height/2);
+  rotate(rotAngle);
+  for (int i = 0; i < bands; i++) {
+    // draw the bands with a scale factor
+    translate(sum[i], i);
+    rotate(sum[i]);
+    ellipse(i, -20, sum[i]*2, sum[i]*2);
   }
+  popMatrix();
+
 
 
   if (sample.isPlaying()) {
@@ -176,27 +122,5 @@ void draw() {
   }
   if (sample.position() < 60) {
     frame = 0;
-  }
-}
-
-void keyPressed() {
-
-  // SPACE to pause/play the sound
-  if (key == ' ') {
-    if (sample.isPlaying()) {
-      sample.pause();
-    } else {
-      sample.loop();
-    }
-  }
-  // 'R' to rewind
-  // ?? I think this is actually start over
-  if (key == 'r') {
-    sample.rewind();
-  }
-
-  // !! feature opportunity
-  if (key == 'p') {
-    cont = !cont;
   }
 }
