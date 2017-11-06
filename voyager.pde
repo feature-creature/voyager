@@ -1,6 +1,27 @@
-// decent voyager matches: 18, 14, 12, 11, 10, 09, 08, 04+, 03, 02
+// AUTHOR: Luke Demarest
+// DATE:
+// LICENSE: 
 
-// LIBRARIES
+// OBJECTIVE: VISUALS OF EARTH
+// OFFICIAL SOUND FILE: 3
+// other decent sound files: 18, 14, 12, 11, 10, 09, 08, 04+, 03, 02
+
+// CRITERIA:
+//  Imagination
+//  Synchresis
+//  Estrangement
+//  Surprise
+
+// RULES:
+//  Size = 256px by 256px.
+//  No use of external files except the sound.
+//  Use only greyscale color (0 -255)
+//  No user interaction
+
+// FUTURE TODO:
+// Not elegant with human voice
+
+// IMPORT LIBRARIES
 import ddf.minim.*;
 import ddf.minim.analysis.*;
 
@@ -35,8 +56,8 @@ float angleStep = 0.01;
 
 
 void setup() {
-  size(256, 256);
-  //fullScreen();
+  //size(256, 256);
+  fullScreen();
 
   // initialize minim audio player
   // pass 'this' to indicate [sketch|data] directory for filepath.
@@ -108,6 +129,7 @@ void draw() {
     orbit += 3*angleStep;
 
     ellipse(-2, -20, 7, 7);
+    // !! feature opportunity
     // ?? used to translate off screen
     ellipse(10+ orbit, 0, 10, 10);
     line(0, 0, 10 + orbit, 0);
@@ -118,11 +140,11 @@ void draw() {
     // ?? not visable when drawn after points
     // ?? + || -
     //for (int i = 0; i < sample.bufferSize() - 1; i+=4) {
-    //  point(x + rotAngle, -20  + sample.left.get(i)*sclx + rotAngle);
-    //  pushMatrix();
-    //  rotate(-3*rotAngle);
-    //  point(-40 + sample.right.get(i)*sclx*2.5, x);
-    //  popMatrix();
+      //point(x + rotAngle, -20  + sample.left.get(i)*sclx + rotAngle);
+      //pushMatrix();
+      //rotate(-3*rotAngle);
+      //point(-40 + sample.right.get(i)*sclx*2.5, x);
+      //popMatrix();
     //  x++;
     //}
     
@@ -130,6 +152,8 @@ void draw() {
     // ?? accidental dormant code
     // ?? not visable when drawn after points
     // ?? + || -
+    // view after points arise
+    // morse code/breathing blink
     //pushMatrix();
     //rotate(rotAngle/3);
     //ellipse(-2, -40, 5, 5);
