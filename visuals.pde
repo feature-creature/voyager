@@ -12,7 +12,8 @@ class Visuals {
   void draw() {
     // instead of background, draw rect with variable alpha
     // creates ghosting effect
-    fill(0, map(rotAngle, 0, 10, 25, 205));
+    //fill(0, map(rotAngle, 0, 10, 25, 205));
+    fill(0, map(rotAngle, 0, 10, 10, 205));
     stroke(0);
     rect(0, 0, width, height);
     // reset fill and stroke for other imagery

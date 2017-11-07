@@ -52,8 +52,9 @@ float angleStep = 0.01;
 
 
 void setup() {
-  //size(256, 256);
-  fullScreen();
+  //size(256, 256, P3D);
+  size(256, 256);
+  //fullScreen();
   background(0);
 
   // initialize minim audio player
@@ -64,8 +65,8 @@ void setup() {
   // arguments: (file name / absolute path / url, int buffersize)
   // ?? url attempts returned errors
   // ?? why default buffersize: 1024 (2^10)
-  sample = minim.loadFile("six.mp3", 1024);
-    //sample = minim.loadFile("SOE_03.mp3", 1024);
+  sample = minim.loadFile("jc.mp3", 1024);
+  //sample = minim.loadFile("SOE_03.mp3", 1024);
 
   // loop sample in audioplayer
   sample.loop();
@@ -106,6 +107,8 @@ void draw() {
   pushMatrix();
   translate(width/2, height/2);
   rotate(rotAngle);
+  //rotateX(rotAngle);
+  //rotateZ(rotAngle);
   for (int i = 0; i < bands; i++) {
     // draw the bands with a scale factor
     translate(sum[i], i);
