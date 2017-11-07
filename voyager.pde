@@ -52,28 +52,28 @@ float angleStep = 0.01;
 
 
 void setup() {
-  size(256, 256);
-  //fullScreen();
+  //size(256, 256);
+  fullScreen();
+  background(0);
 
   // initialize minim audio player
   // pass 'this' to indicate [sketch|data] directory for filepath.
   minim = new Minim(this);
 
-  // initialize (?) the audioplayer instance with audio file via minim 
+  // initialize the audioplayer instance with audio file via minim 
   // arguments: (file name / absolute path / url, int buffersize)
   // ?? url attempts returned errors
-  // ?? why default buffersize: 1024
-  sample = minim.loadFile("SOE_03.mp3", 1024);
+  // ?? why default buffersize: 1024 (2^10)
+  sample = minim.loadFile("six.mp3", 1024);
+    //sample = minim.loadFile("SOE_03.mp3", 1024);
 
   // loop sample in audioplayer
   sample.loop();
 
   // initialize and patch the FFT analyzer
-  // ?? what does patch mean
   fft = new FFT( sample.bufferSize(), sample.sampleRate() );
 
   // calculate the averages by grouping frequency bands linearly. use 30 averages.
-  // ?? calculate the average of what?
   fft.linAverages( bands );
 
   // initialize the visuals instance
@@ -85,7 +85,6 @@ void setup() {
 
 void draw() {
 
-  // ?? figure out what this does
   // get the FFT and push it to the visualizer
   fft.forward(sample.mix);
   for (int i = 0; i < bands; i++) {
@@ -123,4 +122,7 @@ void draw() {
   if (sample.position() < 60) {
     frame = 0;
   }
+
+  //saveFrame("frames/"+ date() + "_" + frameCount + ".tif");
+  //saveFrame("frames/####.tif");
 }

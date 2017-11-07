@@ -11,6 +11,7 @@ class Visuals {
 
   void draw() {
     // instead of background, draw rect with variable alpha
+    // creates ghosting effect
     fill(0, map(rotAngle, 0, 10, 25, 205));
     stroke(0);
     rect(0, 0, width, height);
@@ -26,9 +27,10 @@ class Visuals {
 
     // access 'bands' array in draw with an index between 0 to 'numBands-1'.
     float r = bands[15] * width;
-    ellipse(width/2, height/2, r, r);
+    // origin ellipse
+    ellipse(width/2, height/2, r/3, r/3);
 
-    // nodes with links that rotate around origin ellipse
+    // ellipse nodes && links that rotate around origin ellipse
     pushMatrix();
     translate(width/2, height/2);
     rotate(rotAngle);
@@ -64,4 +66,21 @@ class Visuals {
   void setFrame(int fr) {
     frame = fr;
   }
+}
+
+
+String date() {
+  fill(200);
+  rectMode(CORNER);
+  rect(width/2- 75, height - 25, 140, 25);
+  fill(0);
+  textSize(10);
+  return(
+    year()
+    + "_" + month() 
+    + "_" + day()
+    + "_" + hour()
+    + "_" + minute()
+    + "_" + second()
+    );
 }
